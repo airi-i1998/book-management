@@ -2,11 +2,15 @@
   "name": "book-management",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "build:renderer": "vite build",
+    "build:server": "tsc && electron-builder",
+    "build": "vite build && tsc && electron-builder",
+    "start": "vite && tsc && electron electron .",
+    "build:electron": "tsc -p tsconfig.json",
+    "electron": "npm run build:electron && electron dist-electron/main.js",
+    "dev:electron": "concurrently \"npm run dev\" \"npm run electron\""
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
@@ -21,7 +25,10 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.2",
     "@vue/tsconfig": "^0.7.0",
+    "concurrently": "^9.1.2",
+    "electron": "^35.2.0",
     "sass-embedded": "^1.87.0",
+    "ts-node": "^10.9.2",
     "typescript": "~5.7.2",
     "vite": "^6.3.1",
     "vue-tsc": "^2.2.8"
